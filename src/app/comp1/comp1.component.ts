@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-comp1',
@@ -7,13 +7,11 @@ import { Component, HostBinding, HostListener, OnInit } from '@angular/core';
 })
 export class Comp1Component implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(renderer: Renderer2, ngZone: NgZone) {
+    ngZone.runOutsideAngular(() => renderer.listen('document', 'mousemove', () => void 0));
   }
 
-  @HostListener('document:mousemove')
-  onMouseMove() {
+  ngOnInit() {
   }
 
 }
